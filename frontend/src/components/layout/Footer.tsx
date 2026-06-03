@@ -6,7 +6,7 @@ export default function SiteFooter() {
     <footer className="border-t border-(--border-subtle) bg-(--bg-2)">
       <div className="max-w-6xl mx-auto px-6 md:px-10 lg:px-16 py-10 flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
         <div className="flex flex-col items-center md:items-start gap-2">
-          <Link to="/" className="text-lg font-bold text-(--accent) font-display">
+          <Link to="/" className="text-2xl font-bold text-(--accent) font-display">
             {APP_NAME}
           </Link>
           <p className="text-xs text-(--t-3) max-w-xs text-center md:text-left">

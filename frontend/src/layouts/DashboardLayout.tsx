@@ -10,7 +10,7 @@ const navItems = [
 export default function DashboardLayout() {
   return (
     <div className="min-h-dvh bg-(--bg-1)">
-      <aside className="hidden lg:flex fixed inset-y-0 left-0 w-60 flex-col bg-(--bg-2) border-r border-(--border-1)">
+      <aside className="hidden lg:flex fixed inset-y-0 left-0 w-60 flex-col bg-(--bg-2) border-r border-(--border-subtle)">
         <div className="px-6 py-5">
           <span className="font-display text-2xl text-(--accent) font-bold">Kash</span>
         </div>
@@ -36,12 +36,15 @@ export default function DashboardLayout() {
       </aside>
 
       <div className="lg:pl-60">
-        <main className="max-w-screen-xl mx-auto px-4 py-6 pb-24 lg:pb-8">
+        <main className="max-w-5xl mx-auto px-4 py-6 pb-24 lg:pb-8 overflow-x-hidden">
           <Outlet />
         </main>
       </div>
 
-      <nav className="lg:hidden fixed bottom-0 inset-x-0 bg-(--bg-2) border-t border-(--border-1) flex safe-area-bottom">
+      <nav
+        className="lg:hidden fixed bottom-0 inset-x-0 bg-(--bg-glass) backdrop-blur-xl border-t border-(--border-subtle) flex"
+        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      >
         {navItems.map(({ to, icon: Icon, label }) => (
           <NavLink
             key={to}
