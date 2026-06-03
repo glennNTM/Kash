@@ -89,7 +89,7 @@ Ne jamais installer un composant shadcn pour du décoratif. Lire `design-system.
 
 ## Design system (résumé — détail dans design-system.md)
 
-- Police : Plus Jakarta Sans (400/600/700)
+- Polices (via Bunny Fonts, jamais Google) : Manrope (corps), Caveat (titres manuscrits), JetBrains Mono (montants)
 - Fond `#F7F7F5`, cartes `#FFFFFF`
 - Accent unique : vert `#1A9E6E`
 - Rouge `#DC2626` : dépassements/erreurs uniquement. Orange `#D97706` : alertes (>80% budget) uniquement.

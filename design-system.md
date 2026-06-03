@@ -33,8 +33,10 @@
 | **Ton général** | Clair · Moderne · Encourageant |
 | **Couleur primaire** | `#1A9E6E` (vert confiance) |
 | **Couleur de fond** | `#F7F7F5` (blanc chaud, non agressif) |
-| **Police display** | `"Plus Jakarta Sans"` |
-| **Police corps** | `"Plus Jakarta Sans"` |
+| **Police titres** | `"Caveat"` (manuscrite — chaleur, ton encourageant) |
+| **Police corps** | `"Manrope"` (corps + sous-titres — clarté) |
+| **Police montants** | `"JetBrains Mono"` (chiffres tabulaires) |
+| **Fournisseur de polices** | Bunny Fonts (`fonts.bunny.net`) — RGPD-friendly, sans tracking |
 
 ### Moodboard résumé
 
@@ -46,7 +48,9 @@
 
 **Vert plutôt que bleu :** Le bleu évoque les banques traditionnelles et l'institution. Le vert évoque la croissance, l'argent qui travaille, la santé financière. Pour un jeune qui *apprend* à gérer son argent, le vert donne de l'énergie positive sans l'austérité.
 
-**Plus Jakarta Sans :** Police géométrique et humaniste à la fois. Très lisible sur mobile, excellente sur les chiffres (le cœur de l'app). Utilisée par Wave, plusieurs fintechs africaines et startups modernes.
+**Manrope (corps) + Caveat (titres) :** Manrope est une géométrique-humaniste très lisible sur mobile et nette sur les chiffres — elle porte la clarté et la confiance. Caveat, manuscrite, n'intervient que sur les grands titres pour réchauffer le ton (l'app est *encourageante*, pas une banque froide). Les montants restent en **JetBrains Mono** : des chiffres tabulaires, alignés, sans jamais de manuscrit. Le manuscrit décore le ton, jamais la donnée financière.
+
+**Pourquoi Bunny Fonts :** même catalogue que Google Fonts, mais servi sans cookies ni collecte d'IP. Pour une app qui manipule des données financières personnelles, éviter d'exfiltrer la moindre requête vers Google est cohérent avec la promesse de confiance.
 
 **Fond `#F7F7F5` :** Blanc cassé légèrement chaud — ni blanc pur (fatigue visuelle), ni gris froid (trop corporate). Doux, accueillant, propre.
 
@@ -87,16 +91,27 @@ Tout composant est pensé à 375px de large en premier. Le desktop est l'adaptat
 ### Police
 
 ```css
-/* Une seule famille — deux rôles */
---font-display : "Plus Jakarta Sans", "Helvetica Neue", sans-serif;
---font-body    : "Plus Jakarta Sans", "Helvetica Neue", sans-serif;
---font-mono    : "Fira Code", "JetBrains Mono", monospace; /* montants fixes si besoin */
+/* Trois rôles distincts */
+--font-display : "Caveat", "Brush Script MT", cursive;      /* titres : accent manuscrit, chaleureux */
+--font-body    : "Manrope", "Helvetica Neue", sans-serif;   /* corps + sous-titres : clarté */
+--font-mono    : "JetBrains Mono", ui-monospace, "Consolas", monospace;  /* montants : chiffres tabulaires */
 ```
 
-**Import Google Fonts :**
+**Import Bunny Fonts (RGPD-friendly, sans tracking) :**
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+<link href="https://fonts.bunny.net/css?family=manrope:400,500,600,700,800|caveat:600,700|jetbrains-mono:400,500,700&display=swap" rel="stylesheet">
 ```
+
+### Application des polices (portée du manuscrit)
+
+| Police | S'applique à | Tracking |
+|---|---|---|
+| `--font-display` (Caveat) | Titres de page (`text-display-l/m`) et de section (`text-heading-l`) **uniquement** | `normal` (jamais négatif — un manuscrit serré devient illisible) |
+| `--font-body` (Manrope) | Tout le reste : sous-titres (`heading-m/s`), corps, labels, eyebrow, boutons, inputs | selon l'échelle |
+| `--font-mono` (JetBrains Mono) | Montants : `text-stat`, input montant, chiffres de tableaux | `-0.02em` |
+
+> ⚠️ Caveat ne touche **jamais** un chiffre ni un montant. La donnée financière reste en Manrope ou JetBrains Mono — c'est ce qui préserve la confiance.
 
 ### Échelle typographique
 
@@ -118,10 +133,10 @@ Tout composant est pensé à 375px de large en premier. Le desktop est l'adaptat
 ### Règle de hiérarchie
 
 ```
-[EYEBROW]     → 11px / 600 / uppercase / tracking 0.1em / couleur accent ou t-3
-[TITRE]       → 20–48px / 700 / tracking négatif / t-1
-[VALEUR]      → stat size / 700 / accent ou t-1
-[DESCRIPTION] → 15px / 400 / t-2 / max-width 480px
+[EYEBROW]     → Manrope / 11px / 600 / uppercase / tracking 0.1em / accent ou t-3
+[TITRE]       → Caveat / 28–48px / 700 / tracking normal / t-1
+[VALEUR]      → JetBrains Mono / stat size / 700 / tracking -0.02em / accent ou t-1
+[DESCRIPTION] → Manrope / 15px / 400 / t-2 / max-width 480px
 ```
 
 ---
@@ -583,14 +598,14 @@ border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
    Gestion financière personnelle · Mobile-first
    ════════════════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.bunny.net/css?family=manrope:400,500,600,700,800|caveat:600,700|jetbrains-mono:400,500,700&display=swap');
 
 :root {
 
   /* ── TYPOGRAPHIE ────────────────────────────────────── */
-  --font-display : "Plus Jakarta Sans", "Helvetica Neue", sans-serif;
-  --font-body    : "Plus Jakarta Sans", "Helvetica Neue", sans-serif;
-  --font-mono    : "Fira Code", "JetBrains Mono", monospace;
+  --font-display : "Caveat", "Brush Script MT", cursive;      /* titres (manuscrit) */
+  --font-body    : "Manrope", "Helvetica Neue", sans-serif;   /* corps + sous-titres */
+  --font-mono    : "JetBrains Mono", ui-monospace, "Consolas", monospace;  /* montants */
 
   /* ── TAILLES DE TEXTE ───────────────────────────────── */
   --text-display-l  : clamp(28px, 5vw, 48px);
@@ -787,8 +802,10 @@ body {
 #### Polices modifiées
 | Token | Template default | Kash | Raison |
 |---|---|---|---|
-| `--font-display` | `-apple-system / SF Pro` | `Plus Jakarta Sans` | Identité propre, excellente sur les chiffres |
-| `--font-body` | `-apple-system / SF Pro` | `Plus Jakarta Sans` | Cohérence, une seule famille |
+| `--font-display` | `Plus Jakarta Sans` | `Caveat` (manuscrit) | Réchauffe le ton (app encourageante) — cantonné aux gros titres |
+| `--font-body` | `Plus Jakarta Sans` | `Manrope` | Clarté + chiffres nets, sans la froideur d'Inter |
+| `--font-mono` | `Fira Code` | `JetBrains Mono` | Chiffres tabulaires pour tous les montants |
+| Fournisseur | Google Fonts | Bunny Fonts | RGPD-friendly, zéro tracking — cohérent avec une app financière |
 
 #### Règles adaptées
 - **Navigation desktop :** Sidebar gauche fixe (Dashboard / Statistiques / Reste / Historique / Objectifs / Profil)
@@ -799,7 +816,8 @@ body {
 
 #### Notes
 - Dark mode prévu mais non prioritaire — lancer d'abord en light only
-- Police chargée via Google Fonts avec `font-display: swap` pour les perfs
+- Polices chargées via **Bunny Fonts** (`fonts.bunny.net`) avec `display=swap` — RGPD-friendly, pas de requête vers Google
+- Manuscrit (Caveat) **réservé aux titres** ; jamais sur un chiffre ou un montant (lisibilité + confiance)
 - App responsive : sidebar desktop, bottom nav mobile
 - Assets logo : à documenter quand l'intégration sera finalisée
 
