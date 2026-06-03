@@ -1,0 +1,33 @@
+# ── Racine du monorepo Kash ──
+# Les dossiers frontend/ et backend/ ont leur propre .gitignore.
+# Ce fichier couvre l'OS, les éditeurs et une ceinture de sécurité globale.
+
+# Environnement (filet de sécurité — déjà géré par backend/.gitignore)
+.env
+.env.local
+.env.*.local
+*.env
+!*.env.example
+
+# Dépendances (filet de sécurité)
+**/node_modules/
+
+# Logs et temporaires
+*.log
+logs/
+tmp/
+.cache/
+
+# Builds
+**/dist/
+**/build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Éditeurs
+.idea/
+*.swp
+.vscode/*
+!.vscode/extensions.json

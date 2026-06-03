@@ -1,0 +1,24 @@
+{
+  "name": "kash-backend",
+  "version": "1.0.0",
+  "description": "Kash Backend",
+  "license": "ISC",
+  "author": "Glenn NTOUTOUME",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.9.1",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  }
+}
+ 
