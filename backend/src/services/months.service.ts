@@ -1,11 +1,23 @@
+import { eq, and, desc } from 'drizzle-orm'
+import { db } from '../db/index.js'
+import { months } from '../db/schema/index.js'
 import type { Month, NewMonth } from '../db/schema/index.js'
 
-export async function findAll(_userId: string): Promise<Month[]> {
-  return []
+export async function findAll(userId: string): Promise<Month[]> {
+  return db
+    .select()
+    .from(months)
+    .where(eq(months.userId, userId))
+    .orderBy(desc(months.year), desc(months.month))
 }
 
-export async function findById(_id: number): Promise<Month | null> {
-  return null
+export async function findById(id: number, userId: string): Promise<Month | null> {
+  const result = await db
+    .select()
+    .from(months)
+    .where(and(eq(months.id, id), eq(months.userId, userId)))
+    .limit(1)
+  return result[0] ?? null
 }
 
 export async function create(_data: Partial<NewMonth>): Promise<Month | null> {
